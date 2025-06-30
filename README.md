@@ -96,5 +96,5 @@ cd path\to\cloned\repo\PygameModelling25
 # start jupyter notebook
 jupyter notebook
 ```
-2. From the user interface of jupyter open the provided course track notebooks starting with `Track1...` and `Track2...`.
+2. From the user interface of jupyter open the provided course track notebook `PracticalTrack1.ipynb`
 3. Follow the instructions in the notebook and enjoy the workshop!
