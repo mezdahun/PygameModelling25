@@ -1,4 +1,4 @@
-# **PyGame Modelling Workshop 2023**
+# **PyGame Modelling Workshop 2025**
 
 **Pyg**ame **Mod**elling **W**orkshop 20**25** (pygmodw25).
 
@@ -20,7 +20,7 @@ To use the provided code base you will need the following:
 5. **Clone this repo:** Open the terminal and use the following command to clone the repo 
   
 ```bash
-git clone https://github.com/scioip34/PygameModelling23.git
+git clone https://github.com/mezdahun/PygameModelling25.git
 ```
   
 6. **Create/activate new virtual environment**: We highly recommend using a virtual environment for the workshop so that you don't have version mismatches with other projects. We recommend using [venv](https://docs.python.org/3/library/venv.html) and we suppose you are using venv in the instructions. If you decide to use another virtual environment (such as pipenv or conda) or not to use any, some differences may show up during the installation.
@@ -28,7 +28,7 @@ git clone https://github.com/scioip34/PygameModelling23.git
 On Linux/MacOS:
 ```bash
 # Move into the newly created/cloned directory
-cd PygameModelling23
+cd PygameModelling25
 
 # Create a new virtual environment in the folder venv
 # it can happen that you need to use python or python3.x instead of python3 according to
@@ -47,7 +47,7 @@ source ./venv/bin/activate
 On Windows:
 ```bash
 # Move into the newly created/cloned directory
-cd PygameModelling23
+cd PygameModelling25
 
 # Create a new virtual environment in the folder venv
 # it can happen that you need to use python or python3.x instead of python3 according to
@@ -76,7 +76,7 @@ jupyter notebook
 On Linux/MacOS:
 ```bash
 # Move into the created/cloned directory
-cd path/to/cloned/repo/PygameModelling23
+cd path/to/cloned/repo/PygameModelling25
 
 # Activate the virtual environment
 source ./venv/bin/activate
@@ -88,7 +88,7 @@ jupyter notebook
 On Windows:
 ```bash
 # Move into the newly created/cloned directory
-cd path\to\cloned\repo\PygameModelling23
+cd path\to\cloned\repo\PygameModelling25
 
 # Activate the virtual environment
 .\venv\Scripts\activate.bat
