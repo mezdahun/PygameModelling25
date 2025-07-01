@@ -61,7 +61,7 @@ class Simulation:
 
         # Showing path history and sving data
         self.show_agent_trails = False  # by default we don't show trails
-        self.memory_length = 0   # by default we don't save data
+        self.memory_length = 0  # by default we don't save data
 
         # Initializing placeholders for data structures
         self.ori_memory = None
@@ -70,7 +70,6 @@ class Simulation:
         self.vy_memory = None
         if self.agent_type == "SIR-brownian-selfpropelled":
             self.agent_states = None
-
 
         # Initializing pygame
         pygame.init()
@@ -81,7 +80,6 @@ class Simulation:
         self.agents = pygame.sprite.Group()
         # Creating N agents in the environment
         self.create_agents()
-
 
     def draw_walls(self):
         """Drawing walls on the arena according to initialization, i.e. width, height and padding"""
@@ -127,6 +125,11 @@ class Simulation:
                     self.screen.blit(text, (agent.position[0] + 2 * agent.radius,
                                             agent.position[1] + 2 * agent.radius + i * (font_size + spacing)))
 
+    def bridgeIO(self):
+        """This is a placeholder method, called in every simulation step, that can later on be used to create file
+        read/write bridges to other software, e.g. our in house mixed-reality software"""
+        pass
+
     def save_data(self):
         """Saving orientation and position history of agents to visualize paths"""
         if self.save_agent_data:
@@ -158,22 +161,11 @@ class Simulation:
                 self.vy_memory = None
                 self.agent_states = None
 
-    # def state_to_int(self, state):
-    #     """Converts agent state to integer"""
-    #     if state == "S":
-    #         return 1
-    #     elif state == "I":
-    #         return 2
-    #     elif state == "R":
-    #         return 3
-    #     elif state == "D":
-    #         return -1
-    #     else:
-    #         raise Exception("Unknown state")
-
     def iid_matrix(self):
         """Returns a matrix of inter-agent distances"""
-        return np.array([[np.linalg.norm(np.array(ag1.position) - np.array(ag2.position)) for ag1 in self.agents] for ag2 in self.agents])
+        return np.array(
+            [[np.linalg.norm(np.array(ag1.position) - np.array(ag2.position)) for ag1 in self.agents] for ag2 in
+             self.agents])
 
     def draw_agent_paths(self):
         if self.ori_memory is not None:
@@ -181,7 +173,7 @@ class Simulation:
             cmap = colmaps.get_cmap('jet')
             transparency = 0.5
             transparency = int(transparency * 255)
-            big_colors = cmap(1-(self.ori_memory / (2 * np.pi))) * 255
+            big_colors = cmap(1 - (self.ori_memory / (2 * np.pi))) * 255
             # setting alpha
             surface = pygame.Surface((self.WIDTH + self.window_pad, self.HEIGHT + self.window_pad))
             surface.fill(WHITE)
@@ -336,7 +328,7 @@ class Simulation:
         self.draw_walls()
         if self.show_zones:
             self.draw_agent_zones()
-        if self.show_agent_trails and self.memory_length>0:
+        if self.show_agent_trails and self.memory_length > 0:
             self.draw_agent_paths()
         self.agents.draw(self.screen)
         self.draw_framerate()
@@ -362,7 +354,6 @@ class Simulation:
             except:
                 print(f"Error while drawing agent zones!")
 
-
     def start(self):
 
         start_time = datetime.now()
@@ -371,6 +362,8 @@ class Simulation:
         print("Starting main simulation loop!")
         # Main Simulation loop until dedicated simulation time
         while self.t < self.T:
+            # Bridge IO for external software (read/write data that influences simulation)
+            self.bridgeIO()
 
             events = pygame.event.get()
             # Carry out interaction according to user activity
@@ -415,12 +408,6 @@ class Simulation:
 
             # Moving time forward
             self.clock.tick(self.framerate)
-            # if self.agent_type == "SIR-brownian-selfpropelled" and self.stop_when_all_recovered:
-            #     # stop simulations if all agents are recovered or dead
-            #     states = [ag.state for ag in self.agents]
-            #     if states.count("I") == 0:
-            #         print("No more infected agents left!")
-            #         break
 
         end_time = datetime.now()
         print(f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S.%f')} Total simulation time: ",
