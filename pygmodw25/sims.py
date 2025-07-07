@@ -71,6 +71,9 @@ class Simulation:
         if self.agent_type == "SIR-brownian-selfpropelled":
             self.agent_states = None
 
+        # Mixed-reality related settings
+        self.with_mixed_reality = False
+
         # Initializing pygame
         pygame.init()
         self.screen = pygame.display.set_mode([self.WIDTH + 2 * self.window_pad, self.HEIGHT + 2 * self.window_pad])
@@ -80,6 +83,20 @@ class Simulation:
         self.agents = pygame.sprite.Group()
         # Creating N agents in the environment
         self.create_agents()
+
+    def initiate_mixed_reality(self):
+        """Initializing mixed-reality related class attributes and imports"""
+        self.with_mixed_reality = True
+        # importing spout sender to transfer visualization to projection mapper
+        # Only works on Windows
+        import SpoutGL
+        from OpenGL import GL
+        self.GL = GL
+
+        # Spout Sender to send visualization to Resolume Arena in CoBe
+        self.sender = SpoutGL.SpoutSender()
+        self.sender.setSenderName("Python Spout Sender")
+
 
     def draw_walls(self):
         """Drawing walls on the arena according to initialization, i.e. width, height and padding"""
@@ -404,6 +421,13 @@ class Simulation:
             # Draw environment and agents
             if self.with_visualization:
                 self.draw_frame()
+                # In case of connected mixed reality system we transfer the visualization via SpoutSender
+                if self.with_mixed_reality:
+                    flipped_screen = pygame.transform.flip(self.screen, True, True)
+                    result = self.sender.sendImage(pygame.image.tostring(flipped_screen, 'RGBA'),
+                                                   flipped_screen.get_width(),
+                                                   flipped_screen.get_height(), self.GL.GL_RGBA, False, 0)
+                    self.sender.setFrameSync("Python Spout Sender")
                 pygame.display.flip()
 
             # Moving time forward
