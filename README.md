@@ -2,7 +2,7 @@
 
 **Pyg**ame **Mod**elling **W**orkshop 20**25** (pygmodw25).
 
-This is the offcicial repo of the pygame modelling course for collective systems workshop 2025 Berlin.
+This is the offcicial repo of the pygame modelling course for collective systems workshop 2025 Berlin!
 
 ## Welcome to the Workshop
 During this workshop you will learn about using a python-based game engine (pygame) for agent-based modelling and simulation tasks to model collective behavior and to collect analyze and visualize the resulting data.
